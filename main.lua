@@ -1,10 +1,13 @@
+local forceIntegerScaling = true
+
 local desktopResX, desktopResY = love.window.getDesktopDimensions()
 local localResX = 320
 local localResY = 180
-local integerX = math.floor(desktopResX / localResX)
-local integerY = math.floor(desktopResY / localResY)
 
-local desiredScale = integerX < integerY and integerX or integerY
+local scaleX = forceIntegerScaling == true and math.floor(desktopResX / localResX) or desktopResX / localResX
+local scaleY = forceIntegerScaling == true and math.floor(desktopResY / localResY) or desktopResY / localResY
+local desiredScale = scaleX < scaleY and scaleX or scaleY
+
 local scaledResX = localResX * desiredScale
 local scaledResY = localResY * desiredScale
 
