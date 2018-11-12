@@ -14,22 +14,42 @@ local scaledResY = localResY * desiredScale
 local offsetX = (desktopResX - scaledResX) / 2
 local offsetY = (desktopResY - scaledResY) / 2
 
+player = {
+	x = 10,
+	xi = 10, 
+	y = 10,
+	yi = 10,
+	speed = 20,
+	img = nil 
+}
+
 function love.load(arg)
 	love.window.setFullscreen(true)
     love.graphics.setDefaultFilter('nearest', 'nearest', 0)
-	playerImg = love.graphics.newImage('assets/lonk-1.png')
+	player.img = love.graphics.newImage('assets/lonk-1.png')
 end
 
 function love.update(dt)
+		if love.keyboard.isDown('left','a') then
+			player.x = player.x - player.speed*dt
+		elseif love.keyboard.isDown('right','d') then
+			player.x = player.x + player.speed*dt
+		elseif love.keyboard.isDown('up','w') then
+			player.y = player.y - player.speed*dt
+		elseif love.keyboard.isDown('down','s') then
+			player.y = player.y + player.speed*dt
+		end
+
+	player.xi = math.floor(player.x) ~= player.xi and math.floor(player.x) or player.xi
+	player.yi = math.floor(player.y) ~= player.yi and math.floor(player.y) or player.yi
 end
 
 function love.draw(dt)
 	love.graphics.setScissor(offsetX, offsetY, scaledResX, scaledResY)
 	love.graphics.translate(offsetX, offsetY)
 	love.graphics.scale(desiredScale, desiredScale)
-
 	love.graphics.setBackgroundColor(.2, .2, .2)
-    love.graphics.draw(playerImg, 0, 0)
-    love.graphics.draw(playerImg, 100, 100)
-    love.graphics.draw(playerImg, 320 - 16, 180 - 16)
+
+	love.graphics.print('fps: '..love.timer.getFPS(), 5, 160)
+    love.graphics.draw(player.img, player.xi, player.yi)
 end
