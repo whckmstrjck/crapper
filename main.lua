@@ -21,12 +21,12 @@ function love.update(dt)
 end
 
 function love.draw(dt)
-	love.graphics.setScissor(offsetX, offsetY, offsetX + scaledResX, offsetY + scaledResY)
+	love.graphics.setScissor(offsetX, offsetY, scaledResX, scaledResY)
 	love.graphics.translate(offsetX, offsetY)
 	love.graphics.scale(desiredScale, desiredScale)
 
 	love.graphics.setBackgroundColor(.2, .2, .2)
-    love.graphics.draw(playerImg, 1, 1)
+    love.graphics.draw(playerImg, 0, 0)
     love.graphics.draw(playerImg, 100, 100)
-    love.graphics.draw(playerImg, 288 - 16, 180 - 16)
+    love.graphics.draw(playerImg, 320 - 16, 180 - 16)
 end
