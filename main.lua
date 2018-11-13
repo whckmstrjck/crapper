@@ -1,4 +1,6 @@
+require('utils.palette')
 local forceIntegerScaling = true
+
 
 local desktopResX, desktopResY = love.window.getDesktopDimensions()
 local localResX = 320
@@ -45,6 +47,8 @@ function love.update(dt)
 end
 
 function love.draw(dt)
+	Palette:setPalette()
+
 	love.graphics.setScissor(offsetX, offsetY, scaledResX, scaledResY)
 	love.graphics.translate(offsetX, offsetY)
 	love.graphics.scale(desiredScale, desiredScale)
