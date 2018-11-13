@@ -28,8 +28,8 @@ player = {
 
 function love.load(arg)
 	love.window.setFullscreen(true)
-    love.graphics.setDefaultFilter('nearest', 'nearest', 0)
-	player.img = love.graphics.newImage('assets/plonk-1.png')
+	love.graphics.setDefaultFilter('nearest', 'nearest', 0)
+	player.img = love.image.newImageData('assets/plonk-1.png')
 end
 
 function love.update(dt)
@@ -45,6 +45,8 @@ function love.update(dt)
 
 	player.xi = math.floor(player.x) ~= player.xi and math.floor(player.x) or player.xi
 	player.yi = math.floor(player.y) ~= player.yi and math.floor(player.y) or player.yi
+
+	Palette:setPal(player, 'P_DEFAULT')
 end
 
 function love.draw(dt)
@@ -53,8 +55,7 @@ function love.draw(dt)
 	love.graphics.scale(desiredScale, desiredScale)
 	love.graphics.setBackgroundColor(.2, .2, .2)
 
-	Palette:setColors(player.img)
-	love.graphics.draw(player.img, player.xi, player.yi)
+	love.graphics.draw(love.graphics.newImage(player.img), player.xi, player.yi)
 	
 	love.graphics.print('fps: '..love.timer.getFPS(), 5, 160)
 end
