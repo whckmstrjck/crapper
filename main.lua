@@ -53,7 +53,7 @@ function love.draw(dt)
 	love.graphics.scale(desiredScale, desiredScale)
 	love.graphics.setBackgroundColor(.2, .2, .2)
 
-	Palette:setColors(player)
+	Palette:setColors(player.img)
 	love.graphics.draw(player.img, player.xi, player.yi)
 	
 	love.graphics.print('fps: '..love.timer.getFPS(), 5, 160)

@@ -5,13 +5,8 @@ local palettes = {
 }
 
 Palette = {
-    setColors = function(player)
-        local pal = player.palette
-        function remapColors (x, y, r, g, b, a)
-        
-        end
+    setColors = function(img)
 
-        player.img:mapPixel(remapColors)
     end
 }
 
