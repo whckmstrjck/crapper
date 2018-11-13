@@ -1,6 +1,17 @@
+local palettes = {
+    player = {
+
+    }
+}
+
 Palette = {
-    setPalette = function()
-        print('crapper')
+    setColors = function(player)
+        local pal = player.palette
+        function remapColors (x, y, r, g, b, a)
+        
+        end
+
+        player.img:mapPixel(remapColors)
     end
 }
 

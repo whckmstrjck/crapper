@@ -1,7 +1,6 @@
 require('utils.palette')
 local forceIntegerScaling = true
 
-
 local desktopResX, desktopResY = love.window.getDesktopDimensions()
 local localResX = 320
 local localResY = 180
@@ -17,18 +16,20 @@ local offsetX = (desktopResX - scaledResX) / 2
 local offsetY = (desktopResY - scaledResY) / 2
 
 player = {
+	id = 'PLAYER',
 	x = 10,
 	xi = 10, 
 	y = 10,
 	yi = 10,
 	speed = 20,
-	img = nil 
+	img = nil,
+	palette = 'DEFAULT'
 }
 
 function love.load(arg)
 	love.window.setFullscreen(true)
     love.graphics.setDefaultFilter('nearest', 'nearest', 0)
-	player.img = love.graphics.newImage('assets/lonk-1.png')
+	player.img = love.graphics.newImage('assets/plonk-1.png')
 end
 
 function love.update(dt)
@@ -47,13 +48,13 @@ function love.update(dt)
 end
 
 function love.draw(dt)
-	Palette:setPalette()
-
 	love.graphics.setScissor(offsetX, offsetY, scaledResX, scaledResY)
 	love.graphics.translate(offsetX, offsetY)
 	love.graphics.scale(desiredScale, desiredScale)
 	love.graphics.setBackgroundColor(.2, .2, .2)
 
+	Palette:setColors(player)
+	love.graphics.draw(player.img, player.xi, player.yi)
+	
 	love.graphics.print('fps: '..love.timer.getFPS(), 5, 160)
-    love.graphics.draw(player.img, player.xi, player.yi)
 end
