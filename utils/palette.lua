@@ -9,41 +9,30 @@ local thresholds = {
 
 local pals = {
     P_DEFAULT = {
-        {1, 0, 0},
-        {1, 1, 0},
-        {1, 1, 1},
-        {0, 1, 1},
-        {0, 0, 1},
-        {0, 0, 0}
+        {0, 46, 85},
+        {153, 150, 0},
+        {240, 128, 106},
+        {255, 212, 203},
+        {142, 137, 255},
+        {255, 255, 255}
     }
 }
 
 Palette = {
     mapColors = function(x,y,r,g,b,a)
         if r == 1 and g == 0 and b == 1 then
-            return 0, 0, 0, 0
-        end
-print(g)
-        if g > thresholds[1][1] and g < thresholds[1][2] then
-            r, g, b = unpack(pals[Palette.curPal][1])
-            return r,g,b,a
-        elseif g > thresholds[2][1] and g < thresholds[2][2] then
-            r, g, b = unpack(pals[Palette.curPal][2])
-            return r,g,b,a
-        elseif g > thresholds[3][1] and g < thresholds[3][2] then
-            r, g, b = unpack(pals[Palette.curPal][3])
-            return r,g,b,a
-        elseif g > thresholds[4][1] and g < thresholds[4][2] then
-            r, g, b = unpack(pals[Palette.curPal][4])
-            return r,g,b,a
-        elseif g > thresholds[5][1] and g < thresholds[5][2] then
-            r, g, b = unpack(pals[Palette.curPal][5])
-            return r,g,b,a
-        elseif g > thresholds[6][1] and g < thresholds[6][2] then
-            r, g, b = unpack(pals[Palette.curPal][6])
-            return r,g,b,a
+            a = 0
         end
 
+        for i = 1, #thresholds do
+            if g > thresholds[i][1] and g < thresholds[i][2] then
+                r = pals[Palette.curPal][i][1] / 255
+                g = pals[Palette.curPal][i][2] / 255
+                b = pals[Palette.curPal][i][3] / 255
+                break
+            end
+        end
+        
         return r,g,b,a
     end,
     setPal = function(self, object, palName)

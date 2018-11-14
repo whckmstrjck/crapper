@@ -21,7 +21,7 @@ player = {
 	xi = 10, 
 	y = 10,
 	yi = 10,
-	speed = 20,
+	speed = 32,
 	img = nil,
 	palette = 'DEFAULT'
 }
@@ -29,7 +29,9 @@ player = {
 function love.load(arg)
 	love.window.setFullscreen(true)
 	love.graphics.setDefaultFilter('nearest', 'nearest', 0)
+	
 	player.img = love.image.newImageData('assets/plonk-1.png')
+	Palette:setPal(player, 'P_DEFAULT')
 end
 
 function love.update(dt)
@@ -46,7 +48,7 @@ function love.update(dt)
 	player.xi = math.floor(player.x) ~= player.xi and math.floor(player.x) or player.xi
 	player.yi = math.floor(player.y) ~= player.yi and math.floor(player.y) or player.yi
 
-	Palette:setPal(player, 'P_DEFAULT')
+	
 end
 
 function love.draw(dt)
