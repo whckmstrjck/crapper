@@ -1,26 +1,54 @@
-local palettes = {
+local thresholds = {
+    {-.1, .1},
+    {.1, .3},
+    {.3, .5},
+    {.5, .7},
+    {.7, .9},
+    {.9, 1.1}
+}
+
+local pals = {
     P_DEFAULT = {
-        {0.2, 0.5, 0.2},
-        {},
-        {},
-        {},
-        {}
+        {1, 0, 0},
+        {1, 1, 0},
+        {1, 1, 1},
+        {0, 1, 1},
+        {0, 0, 1},
+        {0, 0, 0}
     }
 }
 
-local Palette = {
-    setPal = function(self, object, palName)
-        self.currentPal = palName
-        object.img:mapPixel(self.mapColors)
-    end,
-    mapColors = function(x,y,r,g,b,a,o)
-        if r == 1 and b == 1 then
-            a = 0
-        elseif r == 0 then
-            r, g, b = unpack(palettes[self.currentPal][1])
+Palette = {
+    mapColors = function(x,y,r,g,b,a)
+        if r == 1 and g == 0 and b == 1 then
+            return 0, 0, 0, 0
         end
-    
-        return r, g, b, a
+print(g)
+        if g > thresholds[1][1] and g < thresholds[1][2] then
+            r, g, b = unpack(pals[Palette.curPal][1])
+            return r,g,b,a
+        elseif g > thresholds[2][1] and g < thresholds[2][2] then
+            r, g, b = unpack(pals[Palette.curPal][2])
+            return r,g,b,a
+        elseif g > thresholds[3][1] and g < thresholds[3][2] then
+            r, g, b = unpack(pals[Palette.curPal][3])
+            return r,g,b,a
+        elseif g > thresholds[4][1] and g < thresholds[4][2] then
+            r, g, b = unpack(pals[Palette.curPal][4])
+            return r,g,b,a
+        elseif g > thresholds[5][1] and g < thresholds[5][2] then
+            r, g, b = unpack(pals[Palette.curPal][5])
+            return r,g,b,a
+        elseif g > thresholds[6][1] and g < thresholds[6][2] then
+            r, g, b = unpack(pals[Palette.curPal][6])
+            return r,g,b,a
+        end
+
+        return r,g,b,a
+    end,
+    setPal = function(self, object, palName)
+        self.curPal = palName
+        object.img:mapPixel(self.mapColors)
     end
 }
 
