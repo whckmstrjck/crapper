@@ -1,4 +1,5 @@
-require('utils.palette')
+local Palette = require 'utils.Palette'
+
 local forceIntegerScaling = true
 
 local desktopResX, desktopResY = love.window.getDesktopDimensions()
@@ -17,38 +18,56 @@ local offsetY = (desktopResY - scaledResY) / 2
 
 player = {
 	id = 'PLAYER',
+	pal = 'DEFAULT',
 	x = 10,
 	xi = 10, 
 	y = 10,
 	yi = 10,
 	speed = 32,
-	img = nil,
-	palette = 'DEFAULT'
+	img = nil
 }
 
+function player.setPal(pal)
+	player.img = love.image.newImageData('assets/plonk-1.png')
+	player.pal = pal
+	Palette:processPal(player)
+end
+
+
+--
 function love.load(arg)
 	love.window.setFullscreen(true)
 	love.graphics.setDefaultFilter('nearest', 'nearest', 0)
 	
-	player.img = love.image.newImageData('assets/plonk-1.png')
-	Palette:setPal(player, 'P_DEFAULT')
+	player.setPal('DEFAULT')
 end
 
 function love.update(dt)
-		if love.keyboard.isDown('left','a') then
+	if love.keyboard.isDown('1') then
+		player.setPal('DEFAULT')
+	end
+	if love.keyboard.isDown('2') then
+		player.setPal('CRAPPY')
+	end
+	if love.keyboard.isDown('3') then
+		player.setPal('BUNGY')
+	end
+
+		if love.keyboard.isDown('left') then
 			player.x = player.x - player.speed*dt
-		elseif love.keyboard.isDown('right','d') then
+		end
+		if love.keyboard.isDown('right') then
 			player.x = player.x + player.speed*dt
-		elseif love.keyboard.isDown('up','w') then
+		end
+		if love.keyboard.isDown('up') then
 			player.y = player.y - player.speed*dt
-		elseif love.keyboard.isDown('down','s') then
+		end
+		if love.keyboard.isDown('down') then
 			player.y = player.y + player.speed*dt
 		end
 
 	player.xi = math.floor(player.x) ~= player.xi and math.floor(player.x) or player.xi
 	player.yi = math.floor(player.y) ~= player.yi and math.floor(player.y) or player.yi
-
-	
 end
 
 function love.draw(dt)
